@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Crear Nuevo Cliente{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('styles/styles.css') }}">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Crear Nuevo Cliente</h1>
+       
+        <form method="post">
+            {{ form_start(formularioCliente) }}
+            {{ form_widget(formularioCliente) }}
+            {{ form_end(formularioCliente) }}
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}

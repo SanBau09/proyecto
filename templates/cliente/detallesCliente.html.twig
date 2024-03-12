@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ver Todos los Clientes{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('styles/styles.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Mi Aplicación</a>
+        <ul class="navbar-nav ml-auto">
+            {% if app.user %}
+                <li class="nav-item">
+                    {% if app.user.foto %}
+                        <img src="{{ app.user.foto }}" alt="User Photo" class="rounded-circle" style="width: 40px; height: 40px; margin-right: 10px;">
+                    {% endif %}
+                    <span class="navbar-text mr-2">{{ app.user.nombre }}</span>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path('app_logout') }}" class="btn btn-primary">Logout</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-3">
+                <h2>Menú</h2>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('verTodosClientes') }}">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('verTodasIncidencias') }}">Incidencias</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-9">
+                <!-- Contenido de la página -->
+                <h1>Detalles del cliente</h1>
+                 <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Teléfono</th>
+                            <th>Dirección</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                         <tr>
+                            <td>{{ cliente.nombre }}</td>
+                            <td>{{ cliente.apellidos }}</td>
+                            <td>{{ cliente.telefono }}</td>
+                            <td>{{ cliente.direccion }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h1>Incidencias del cliente</h1>
+                 <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for incidencia in cliente.incidencias %}
+                        <tr>
+                            <td><a href="{{ path('detallesIncidencia', {'id': incidencia.id}) }}">{{ incidencia.titulo }}</a></td>
+                            <td>
+                            <a href="{{ path('editarIncidencia', {'id': incidencia.id}) }}" class="btn btn-primary">Editar</a>                                                        
+                             <form action="{{ path('eliminarIncidencia', {'id': incidencia.id}) }}" method="post">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{{ path('crearIncidencia', {'idCliente': cliente.id}) }}" class="btn btn-primary">Crear Incidencia</a>
+                
+                 {% for flashMessage in app.session.flashBag.get('success') %}
+                     <div class="alert alert-success">{{ flashMessage }}</div>
+                {% endfor %} 
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock %}

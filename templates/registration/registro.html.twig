@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<!DOCTYPE html>
+    <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>{% block title %}Registro de Usuarios{% endblock %}</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="{{ asset('styles/styles.css') }}">
+        </head>
+
+        <body>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <h1 class="text-center mb-4">Registro de Usuarios</h1>
+
+                        {{ form_errors(registrationForm) }}
+
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Email'}}) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    'label': 'Password',
+                    'attr': {'class': 'form-control mb-3', 'placeholder': 'Password'}
+                }) }}
+                {{ form_row(registrationForm.nombre, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Nombre'}}) }}
+                {{ form_row(registrationForm.apellidos, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Apellidos'}}) }}
+                {{ form_row(registrationForm.telefono, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Teléfono'}}) }}
+                {{ form_row(registrationForm.foto, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Foto'}}) }}
+                {{ form_row(registrationForm.roles, {'attr': {'class': 'form-control mb-3'}}) }}
+                {{ form_row(registrationForm.agreeTerms) }}
+                            <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                        {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+            </div>
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        </body>
+    </html>
+{% endblock %}
